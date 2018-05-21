@@ -6,18 +6,14 @@
 
 	<groupId>sparklin</groupId>
 	<artifactId>kshell-repl-api</artifactId>
-	<version>1.2.30</version>
+	<version>0.2.2-1.2.30</version>
 
     <properties>
         <kotlin.version>1.2.30</kotlin.version>
+        <jvm.version>1.8</jvm.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
@@ -41,13 +37,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-            </resource>
-        </resources>
-        <!--<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>-->
-        <!--<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>-->
         <plugins>
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -65,9 +54,7 @@
                         <configuration>
                             <sourceDirs>
                                 <source>src/main/kotlin</source>
-                                <source>src/main/java</source>
                                 <source>src/test/kotlin</source>
-                                <source>src/test/java</source>
                             </sourceDirs>
                         </configuration>
                     </execution>
