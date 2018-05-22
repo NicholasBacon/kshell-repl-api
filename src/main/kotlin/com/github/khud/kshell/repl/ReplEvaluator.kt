@@ -1,4 +1,4 @@
-package org.github.khud.kshell.repl
+package com.github.khud.kshell.repl
 
 import org.jetbrains.kotlin.cli.common.repl.*
 import org.jetbrains.kotlin.resolve.jvm.JvmClassName

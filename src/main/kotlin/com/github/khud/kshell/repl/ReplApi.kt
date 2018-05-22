@@ -1,4 +1,4 @@
-package org.github.khud.kshell.repl
+package com.github.khud.kshell.repl
 
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
 import org.jetbrains.kotlin.cli.jvm.repl.messages.DiagnosticMessageHolder
