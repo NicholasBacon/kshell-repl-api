@@ -2,8 +2,9 @@
 
 package org.github.khud.kshell.repl
 
-import org.jetbrains.kotlin.cli.jvm.compiler.CliLightClassGenerationSupport
+
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
+import org.jetbrains.kotlin.cli.jvm.compiler.NoScopeRecordCliBindingTrace
 import org.jetbrains.kotlin.cli.jvm.compiler.TopDownAnalyzerFacadeForJVM
 import org.jetbrains.kotlin.cli.jvm.repl.DelegatePackageMemberDeclarationProvider
 import org.jetbrains.kotlin.container.get
@@ -30,7 +31,7 @@ class CodeAnalyzer(environment: KotlinCoreEnvironment) {
 
     val module: ModuleDescriptorImpl
 
-    val trace: BindingTraceContext = CliLightClassGenerationSupport.NoScopeRecordCliBindingTrace()
+    val trace: BindingTraceContext = NoScopeRecordCliBindingTrace()
 
     init {
         // Module source scope is empty because all binary classes are in the dependency module, and all source classes are guaranteed

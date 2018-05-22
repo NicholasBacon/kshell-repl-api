@@ -71,7 +71,7 @@ class ReplChecker(
 }
 
 class ConsoleDiagnosticMessageHolder : MessageCollectorBasedReporter, DiagnosticMessageHolder {
-    override val renderedDiagnostics: String
+    val renderedDiagnostics: String
         get() = renderMessage()
 
     private val outputStream = ByteArrayOutputStream()
@@ -80,7 +80,7 @@ class ConsoleDiagnosticMessageHolder : MessageCollectorBasedReporter, Diagnostic
             PrintingMessageCollector(PrintStream(outputStream), MessageRenderer.WITHOUT_PATHS, false),
             false)
 
-    fun renderMessage(): String {
+    override fun renderMessage(): String {
         messageCollector.flush()
         return outputStream.toString("UTF-8")
     }

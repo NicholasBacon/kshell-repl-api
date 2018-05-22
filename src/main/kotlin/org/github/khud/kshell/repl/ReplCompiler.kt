@@ -63,7 +63,7 @@ class ReplCompiler(disposable: Disposable,
             AnalyzerWithCompilerReport.reportDiagnostics(analysisResult.diagnostics, errorHolder)
 
             if (analysisResult is CodeAnalyzer.AnalyzerResult.Error)
-                return Result.Error(EvalError.CompileError(psiFile, false, errorHolder.renderedDiagnostics))
+                return Result.Error(EvalError.CompileError(psiFile, false, errorHolder.renderMessage()))
 
             val expression = psiForObject.getChildOfType<KtObjectDeclaration>()
                     ?.declarations
