@@ -1,4 +1,4 @@
-package org.github.khud.kshell.repl
+package com.github.khud.kshell.repl
 
 import com.intellij.openapi.Disposable
 import com.intellij.psi.PsiElement
