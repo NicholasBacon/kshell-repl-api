@@ -1,4 +1,4 @@
-package sparklin.kshell.repl
+package org.github.khud.kshell.repl
 
 import com.intellij.openapi.Disposable
 import com.intellij.psi.PsiElement
@@ -226,10 +226,10 @@ class ReplCompiler(disposable: Disposable,
 
             appendln("object $classname {")
             snippets.filterIsInstance<DeclarationSnippet>().forEach { appendln(it.code()) }
-            appendln("val $RUN_FIELD_NAME = {")
+            appendln("val ${RUN_FIELD_NAME} = {")
             snippets.filterIsInstance<InitializerSnippet>().forEach { appendln(it.code()) }
             appendln("}")
-            appendln("val $RESULT_FIELD_NAME=$RUN_FIELD_NAME()")
+            appendln("val ${RESULT_FIELD_NAME}=${RUN_FIELD_NAME}()")
             appendln("}")
         }
 

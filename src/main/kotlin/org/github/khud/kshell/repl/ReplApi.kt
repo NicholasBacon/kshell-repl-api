@@ -1,4 +1,4 @@
-package sparklin.kshell.repl
+package org.github.khud.kshell.repl
 
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
 import org.jetbrains.kotlin.cli.jvm.repl.messages.DiagnosticMessageHolder
@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantReadWriteLock
 
 sealed class Result<S,E> {
-    data class Error<S,E>(val error: E): Result<S,E>()
-    data class Success<S,E>(val data: S): Result<S,E>()
+    data class Error<S,E>(val error: E): Result<S, E>()
+    data class Success<S,E>(val data: S): Result<S, E>()
 }
 
 sealed class EvalError(val isIncomplete: Boolean, val message: String?) {

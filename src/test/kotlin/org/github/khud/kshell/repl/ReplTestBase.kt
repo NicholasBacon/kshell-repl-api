@@ -1,4 +1,4 @@
-package sparklin.kshell.repl
+package org.github.khud.kshell.repl
 
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector

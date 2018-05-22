@@ -1,4 +1,4 @@
-package sparklin.kshell.repl
+package org.github.khud.kshell.repl
 
 import org.jetbrains.kotlin.cli.common.repl.*
 import org.jetbrains.kotlin.resolve.jvm.JvmClassName
@@ -26,7 +26,8 @@ open class ReplEvaluator(
                         scriptInstance
                     }
                     catch (e: Throwable) {
-                        return Result.Error(EvalError.RuntimeError(e.message ?: e.cause?.message ?: e.javaClass.canonicalName, e.cause as? Exception))
+                        return Result.Error(EvalError.RuntimeError(e.message
+                                ?: e.cause?.message ?: e.javaClass.canonicalName, e.cause as? Exception))
                     }
 
             commitSnippets(state, data.snippets)

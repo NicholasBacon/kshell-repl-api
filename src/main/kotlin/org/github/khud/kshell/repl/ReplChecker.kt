@@ -1,4 +1,4 @@
-package sparklin.kshell.repl
+package org.github.khud.kshell.repl
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.util.text.StringUtil

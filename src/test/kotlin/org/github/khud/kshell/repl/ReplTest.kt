@@ -1,4 +1,4 @@
-package sparklin.kshell.repl
+package org.github.khud.kshell.repl
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail

@@ -1,6 +1,6 @@
 @file:Suppress("UNUSED_PARAMETER")
 
-package sparklin.kshell.repl
+package org.github.khud.kshell.repl
 
 import org.jetbrains.kotlin.cli.jvm.compiler.CliLightClassGenerationSupport
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
