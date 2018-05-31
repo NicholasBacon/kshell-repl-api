@@ -7,6 +7,29 @@
 	<groupId>com.github.khud</groupId>
 	<artifactId>kshell-repl-api</artifactId>
 	<version>0.2.2-1.2.30</version>
+    <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/khud/kshell-repl-api</url>
+        <connection>scm:git:https://github.com/khud/kshell-repl-api</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>khud</id>
+            <name>Vitaly Khudobakhshov</name>
+            <email>vitaly.khudobakhshov@gmail.com</email>
+            <timezone>UTC+3</timezone>
+        </developer>
+    </developers>
 
     <properties>
         <kotlin.version>1.2.30</kotlin.version>
