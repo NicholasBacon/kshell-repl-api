@@ -34,7 +34,7 @@ open class ReplEvaluator(
 
             val resultField = scriptClass.getDeclaredField(ReplCompiler.RESULT_FIELD_NAME).apply { isAccessible = true }
             val resultValue: Any? = resultField.get(scriptInstance)
-            return if (data.classes.hasResult) Result.Success(EvalResult.ValueResult(data.classes.valueResultVariable!!, resultValue!!, data.classes.type!!))
+            return if (data.classes.hasResult) Result.Success(EvalResult.ValueResult(data.classes.valueResultVariable!!, resultValue, data.classes.type!!))
             else Result.Success(EvalResult.UnitResult())
         }
     }
