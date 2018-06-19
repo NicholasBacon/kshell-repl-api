@@ -19,7 +19,7 @@ sealed class EvalError(val isIncomplete: Boolean, val message: String?) {
 }
 
 sealed class EvalResult {
-    class ValueResult(val name: String, val value: Any, val type: String) : EvalResult() {
+    class ValueResult(val name: String, val value: Any?, val type: String) : EvalResult() {
         override fun toString(): String = "$name: $type = $value"
     }
 
