@@ -12,7 +12,7 @@
 
 	<groupId>com.github.khud</groupId>
 	<artifactId>kshell-repl-api</artifactId>
-	<version>0.2.3-1.2.41</version>
+	<version>0.2.4-1.2.60</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -38,7 +38,7 @@
     </developers>
 
     <properties>
-        <kotlin.version>1.2.41</kotlin.version>
+        <kotlin.version>1.2.60</kotlin.version>
         <jvm.version>1.8</jvm.version>
     </properties>
 

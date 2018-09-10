@@ -78,7 +78,7 @@ class ReplCompiler(disposable: Disposable,
 
             val generationState = GenerationState.Builder(
                     psiForObject.project,
-                    ClassBuilderFactories.binaries(false),
+                    ClassBuilderFactories.BINARIES,
                     analyzerEngine.module,
                     analyzerEngine.trace.bindingContext,
                     listOf(psiForObject),
