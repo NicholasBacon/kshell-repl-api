@@ -142,7 +142,8 @@ class ReplCompiler(disposable: Disposable,
         }
 
         fun mkString(typeElement: KtTypeElement, history: List<Snippet>, typeParameters: List<String>): String {
-            val name = typeElement.getChildOfType<KtExpression>()!!.text
+            // for (T) -> G we will use F$2<#T,#G> and so on
+            val name = typeElement.getChildOfType<KtExpression>()?.text ?: "F$${typeElement.typeArgumentsAsTypes.size}"
             val args = typeElement.typeArgumentsAsTypes.map { mkString(it.typeElement!!, history, typeParameters) }
             return qName(name, history, typeParameters) + if (args.isNotEmpty()) "<" + args.joinToString(separator = ",") + ">" else ""
         }
@@ -152,7 +153,9 @@ class ReplCompiler(disposable: Disposable,
         return func.psi.valueParameters
                 .joinToString(separator = ",") { p ->
                     val ref =  p.typeReference!!
-                    val typeEl = ref.getChildOfType<KtNullableType>()?.getChildOfType() ?: ref.getChildOfType<KtUserType>()!!
+                    val funcType: KtTypeElement? = ref.getChildOfType<KtFunctionType>()
+                    val typeEl = ref.getChildOfType<KtNullableType>()?.getChildOfType() ?:
+                        ref.getChildOfType<KtUserType>() ?: funcType!!
                     mkString(typeEl, history, typeParameters)
                 }
     }

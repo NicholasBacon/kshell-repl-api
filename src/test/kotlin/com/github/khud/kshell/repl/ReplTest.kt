@@ -57,6 +57,17 @@ class ReplTest : ReplTestBase() {
     }
 
     @Test
+    fun testHighOrderFuncShadowing() {
+        assertSuccess(repl.eval("fun f(g: () -> Int) = g()"))
+        assertSuccess(repl.eval("fun f(g: () -> Double) = 10"))
+        assertSuccess(repl.eval("fun f(q: () -> Int) = q() + 2"))
+        assertSuccess(repl.eval("fun t(): Int = 1"))
+        assertSuccess(repl.eval("fun d(): Double = 1.0"))
+        assertValue(3, repl.eval("f(::t)"))
+        assertValue(10, repl.eval("f(::d)"))
+    }
+
+    @Test
     fun testClassShadowing() {
         assertSuccess(repl.eval("class A { val x = 10 }"))
         assertSuccess(repl.eval("class A { val x = 20 }"))
@@ -101,6 +112,14 @@ class ReplTest : ReplTestBase() {
     fun testCompoundTypesSignature() {
         assertSuccess(repl.eval("fun <R, T> f(x: List<T>, y: List<Map<R,T>>)=1"))
         assertEquals("List<#1>,List<Map<#0,#1>>", (repl.state.history.last() as FunctionSnippet).parametersTypes)
+    }
+
+    @Test
+    fun testHighOrderTypesSignature() {
+        assertSuccess(repl.eval("fun <T, Q> f(g: (Q, (Q) -> T) -> T, e: (Q) -> T, q: Q): T = g(q, e)"))
+        assertEquals("F$3<#1,F$2<#1,#0>,#0>,F$2<#1,#0>,#1", (repl.state.history.last() as FunctionSnippet).parametersTypes)
+        assertSuccess(repl.eval("fun f(g: (Int) -> (Int) -> Unit) {}"))
+        assertEquals("F$2<Int,F$2<Int,Unit>>", (repl.state.history.last() as FunctionSnippet).parametersTypes)
     }
 
     @Test
@@ -155,6 +174,45 @@ class ReplTest : ReplTestBase() {
     @Test
     fun testNullResult() {
         assertSuccess(repl.eval("null"))
+    }
+
+    @Test
+    fun testHighOrderFunc() {
+        assertSuccess(repl.eval("""
+            fun f(g: () -> Int): Int {
+                return g()
+            }
+        """))
+
+        assertSuccess(repl.eval("""
+            fun <T> f(g: () -> T): T {
+                return g()
+            }
+        """))
+
+        assertSuccess(repl.eval("""
+            fun <T, Q> f(g: (Q, (Q) -> T) -> T, e: (Q) -> T, q: Q): T {
+                return g(q, e)
+            }
+        """))
+
+        assertSuccess(repl.eval("""
+            class HTML {
+                fun body() {  }
+            }
+        """))
+        assertSuccess(repl.eval("""
+            fun html(init: HTML.() -> Unit): HTML {
+                val html = HTML()  // create the receiver object
+                html.init()        // pass the receiver object to the lambda
+                return html
+            }
+        """))
+        assertSuccess(repl.eval("""
+            html {       // lambda with receiver begins here
+                body()   // calling a method on the receiver object
+            }
+        """))
     }
 
     private fun assertValue(expected: Any?, result: Result<EvalResult, EvalError>) {
