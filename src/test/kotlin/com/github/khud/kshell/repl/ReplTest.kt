@@ -215,6 +215,22 @@ class ReplTest : ReplTestBase() {
         """))
     }
 
+    @Test
+    fun testDestructingDeclaration() {
+        assertSuccess(repl.eval("val (foo, bar) = 1 to 2"))
+        assertSuccess(repl.eval("val (_, bar: Int) = 1 to 3"))
+        assertValue(3, repl.eval("bar"))
+    }
+
+    @Test
+    fun testMultilineDestructingDeclaration() {
+        assertSuccess(repl.eval("""
+            val (foo, bar) = 1 to 2
+            val (_, x: Int) = 1 to 3
+            """))
+        assertValue(2, repl.eval("bar"))
+    }
+
     private fun assertValue(expected: Any?, result: Result<EvalResult, EvalError>) {
         when (result) {
             is Result.Error -> fail(result.error.message)

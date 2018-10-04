@@ -166,12 +166,28 @@ class ReplCompiler(disposable: Disposable,
     private fun psiToSnippets(psiFile: KtFile, generatedClassname: String): MutableList<Snippet> {
         val snippets = mutableListOf<Snippet>()
         psiFile.getChildOfType<KtScript>()?.declarations?.forEach {
-            snippets.add(when (it) {
-                is KtProperty -> PropertySnippet(generatedClassname, it.name!!, it)
-                is KtFunction -> FunctionSnippet(generatedClassname, it.name!!, it)
-                is KtScriptInitializer -> InitializerSnippet(generatedClassname, it)
-                is KtObjectDeclaration -> ObjectSnippet(generatedClassname, it.name!!, it)
-                is KtClass -> ClassSnippet(generatedClassname, it.name!!, it)
+            snippets.addAll(when (it) {
+                is KtProperty -> listOf(PropertySnippet(generatedClassname, it.name!!, it))
+                is KtFunction -> listOf(FunctionSnippet(generatedClassname, it.name!!, it))
+                is KtScriptInitializer -> listOf(InitializerSnippet(generatedClassname, it))
+                is KtObjectDeclaration -> listOf(ObjectSnippet(generatedClassname, it.name!!, it))
+                is KtClass -> listOf(ClassSnippet(generatedClassname, it.name!!, it))
+                is KtDestructuringDeclaration -> {
+                    val parts = mutableListOf<Snippet>()
+                    val valOrVar = if (it.isVar) "var" else "val"
+                    it.entries.withIndex().forEach { (ind, entry) ->
+                        val lName = entry.name!!
+                        if (lName != "_") {
+                            parts.add(TextDeclarationSnippet(generatedClassname,
+                                    lName, "$valOrVar ${entry.text} = $DESTRUCTURING_TEMP_VAR.component${ind + 1}()"))
+                        }
+                    }
+                    if (parts.size != 0) {
+                        parts.add(0, TextDeclarationSnippet(generatedClassname,
+                                DESTRUCTURING_TEMP_VAR, "val $DESTRUCTURING_TEMP_VAR = ${it.initializer!!.text}"))
+                    }
+                    parts
+                }
                 else -> throw IllegalArgumentException("Unexpected top level declaration: ${it.javaClass.kotlin}")
             })
         }
@@ -240,6 +256,7 @@ class ReplCompiler(disposable: Disposable,
     companion object {
         const val RESULT_FIELD_NAME = "__result"
         const val RUN_FIELD_NAME = "__run"
+        const val DESTRUCTURING_TEMP_VAR = "__temp"
     }
 
     private inline fun <reified T : PsiElement> PsiElement.getChildOfType(): T? {

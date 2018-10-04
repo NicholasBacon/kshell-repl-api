@@ -12,7 +12,7 @@
 
 	<groupId>com.github.khud</groupId>
 	<artifactId>kshell-repl-api</artifactId>
-	<version>0.2.5-1.2.60</version>
+	<version>0.2.6-1.2.60-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <licenses>

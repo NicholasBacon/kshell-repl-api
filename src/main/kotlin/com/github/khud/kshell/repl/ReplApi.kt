@@ -41,9 +41,17 @@ abstract class DeclarationSnippet(klass: String, name: String, var shadowed: Boo
         return this as T
     }
 
-    abstract val psi: KtDeclaration
-    override fun code(): String = psi.text
+    abstract val psi: KtDeclaration?
+    override fun code(): String = psi!!.text
     open fun signature(): String = name
+}
+
+class TextDeclarationSnippet(klass: String, name: String, private val text: String): DeclarationSnippet(klass, name) {
+    override val psi: KtDeclaration?
+        get() = null
+
+    override fun copy(): TextDeclarationSnippet = TextDeclarationSnippet(klass, name, text).replicateShadowed(shadowed)
+    override fun code(): String = text
 }
 
 class PropertySnippet(klass: String, name: String, override val psi: KtProperty): DeclarationSnippet(klass, name) {
