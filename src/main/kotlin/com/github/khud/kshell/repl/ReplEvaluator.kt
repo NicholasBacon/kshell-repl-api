@@ -27,7 +27,8 @@ open class ReplEvaluator(
                     }
                     catch (e: Throwable) {
                         return Result.Error(EvalError.RuntimeError(e.message
-                                ?: e.cause?.message ?: e.javaClass.canonicalName, e.cause as? Exception))
+                                ?: e.cause?.message ?: e.javaClass.canonicalName,
+                                e.cause as? Exception ?: e as? Exception))
                     }
 
             commitSnippets(state, data.snippets)

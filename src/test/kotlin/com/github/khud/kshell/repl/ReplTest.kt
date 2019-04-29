@@ -216,6 +216,12 @@ class ReplTest : ReplTestBase() {
     }
 
     @Test
+    fun testConstValOnTopLevel() {
+        assertSuccess(repl.eval("const val x = 10"))
+        assertValue(10, repl.eval("x"))
+    }
+
+    @Test
     fun testDestructingDeclaration() {
         assertSuccess(repl.eval("val (foo, bar) = 1 to 2"))
         assertSuccess(repl.eval("val (_, bar: Int) = 1 to 3"))
